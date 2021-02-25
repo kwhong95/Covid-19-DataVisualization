@@ -6,6 +6,12 @@
 
 ## 1. Create React APP 
 
+```angular2html
+npx create-react-app covid-19-tracker
+cd covid-19-tracker
+npm start
+```
+
 ## 2. Clean Up Project 
 
 ## 3. Structure of COVID Tracker 

@@ -1,21 +1,8 @@
-import React, {useEffect} from 'react';
-import {Cards, Chart, CountryPicker} from './components'
-import { fetchData } from './api'
-
-import styles from './App.module.css'
+import React from 'react';
 
 const App = () => {
-
-    useEffect(() => {
-        fetchData();
-    }, [])
-
     return (
-        <div className={styles.container}>
-            <Cards />
-            <Chart />
-            <CountryPicker />
-        </div>
+        <h1>Covid Tracker</h1>
     )
 }
 
