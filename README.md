@@ -14,7 +14,20 @@ npm start
 
 ## 2. Clean Up Project 
 
+
 ## 3. Structure of COVID Tracker 
+
+API AndPoint = https://disease.sh/v3/covid-19/countries
+
+- STATE = How to write a variable in REACT
+- useEffect = Runs a piece of of code based on a given condition
+```js
+useEffect(() => {
+        // The code inside here will run once
+        // when the component loads and not again
+    },[countries])
+
+```
 
 ## 4. Create Header 
 
