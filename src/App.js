@@ -1,15 +1,22 @@
 import React, {useEffect, useState} from 'react';
 import './App.css';
-import {Card, FormControl, MenuItem, Select} from "@material-ui/core";
+import {Card, CardContent, FormControl, MenuItem, Select} from "@material-ui/core";
+import numeral from 'numeral'
 import InfoBox from "./InfoBox";
 import Map from './Map';
 import Table from './Table'
+import { sortData } from "./util";
+import 'leaflet/dist/leaflet.css';
 
 const App = () => {
     const [countries, setCountries] = useState([]);
     const [country, setCountry] = useState('worldwide');
     const [countryInfo, setCountryInfo] = useState({});
     const [tableData, setTableData] = useState([]);
+    const [casesType, setCasesType] = useState('cases');
+    const [mapCountries, setMapCountries] = useState([]);
+    const [mapCenter, setMapCenter] = useState({ lat: 37.56667, lng: 126.97806 })
+    const [mapZoom, setMapZoom] = useState(3);
 
     useEffect(() => {
         fetch('https://disease.sh/v3/covid-19/all')
@@ -31,6 +38,7 @@ const App = () => {
                     }));
                     setCountries(countries);
                     setTableData(data);
+                    setMapCountries(sortData);
                 });
         }
         getCountriesData();
@@ -80,32 +88,43 @@ const App = () => {
                     <InfoBox
                         className="app__infoBox"
                         title="확진자 현황"
-                        cases={countryInfo.todayCases}
-                        total={countryInfo.cases}
+                        cases={numeral(countryInfo.todayCases).format("0,0")}
+                        total={numeral(countryInfo.cases).format("0,0a")}
+                        onClick={e => setCasesType('cases')}
+                        isRed
+                        active={casesType === 'cases'}
                     />
                     <InfoBox
                         className="app__infoBox"
                         title="격리해제 현황"
-                        cases={countryInfo.todayRecovered}
-                        total={countryInfo.recovered}
+                        cases={numeral(countryInfo.todayRecovered).format("0,0")}
+                        total={numeral(countryInfo.recovered).format("0,0a")}
+                        active={casesType === 'recovered'}
+                        onClick={e => setCasesType('recovered')}
                     />
                     <InfoBox
                         className="app__infoBox"
                         title="사망자 현황"
-                        cases={countryInfo.todayDeaths}
-                        total={countryInfo.deaths}
+                        cases={numeral(countryInfo.todayDeaths).format("0,0")}
+                        total={numeral(countryInfo.deaths).format("0,0a")}
+                        isRed
+                        active={casesType === 'deaths'}
+                        onClick={e => setCasesType('deaths')}
                     />
                 </div>
-                <Map />
+                <Map
+                    countries={mapCountries}
+                    casesType={casesType}
+                    center={mapCenter}
+                    zoom={mapZoom}
+                />
             </div>
             <Card className="app__rightSide">
-                <div className="app__table">
+                <CardContent>
                     <h3>국가별 현황</h3>
                     <Table countries={tableData} />
-                </div>
-                <div className="app__chart">
-                    전세계 확진 현황
-                </div>
+                    <h3>전세계 {casesType}</h3>
+                </CardContent>
             </Card>
         </div>
     )

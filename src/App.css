@@ -26,10 +26,6 @@
     padding: var(--size-padding);
 }
 
-.app__infoBox {
-    width: 100%;
-}
-
 .app__table {
     padding: var(--size-padding);
 }
