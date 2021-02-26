@@ -1,10 +1,38 @@
 * {
     margin: 0;
+
+    /* size */
+    --size-padding: 10px;
+
+    /* color */
+}
+
+.app {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
 }
 
 .app__header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: calc(var(--size-padding) * 2);
+    padding: var(--size-padding);
+}
+
+.app__stats {
+    display: flex;
+    justify-content: space-between;
+    padding: var(--size-padding);
+}
+
+.app__infoBox {
+    width: 100%;
+}
+
+@media (max-width: 990px) {
+    .app {
+        display: flex;
+        flex-direction: column;
+    }
 }
