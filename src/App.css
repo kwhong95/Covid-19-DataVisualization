@@ -30,6 +30,10 @@
     width: 100%;
 }
 
+.app__table {
+    padding: var(--size-padding);
+}
+
 @media (max-width: 990px) {
     .app {
         display: flex;
