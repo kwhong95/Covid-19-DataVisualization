@@ -37,9 +37,10 @@ const App = () => {
                         name: country.country,
                         value: country.countryInfo.iso2
                     }));
+                    let sortedData = sortData(data)
                     setCountries(countries);
-                    setTableData(data);
-                    setMapCountries(sortData(countries));
+                    setTableData(sortedData);
+                    setMapCountries(data);
                 });
         }
         getCountriesData();
@@ -124,10 +125,12 @@ const App = () => {
             </div>
             <Card className="app__rightSide">
                 <CardContent>
-                    <h3>국가별 현황</h3>
-                    <Table countries={tableData} />
-                    <h3>전세계 {casesType}</h3>
-                    <LineGraph />
+                    <div className="app__information">
+                        <h3>국가별 현황</h3>
+                        <Table countries={tableData} />
+                        <h3>전세계 {casesType}</h3>
+                        <LineGraph className="app__graph" caseType={casesType} />
+                    </div>
                 </CardContent>
             </Card>
         </div>
