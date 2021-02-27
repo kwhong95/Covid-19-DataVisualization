@@ -4,9 +4,10 @@ import {Card, CardContent, FormControl, MenuItem, Select} from "@material-ui/cor
 import numeral from 'numeral'
 import InfoBox from "./InfoBox";
 import Map from './Map';
-import Table from './Table'
-import { sortData } from "./util";
+import Table from './Table';
+import { sortData, prettyPrintStat } from "./util";
 import 'leaflet/dist/leaflet.css';
+import LineGraph from "./LineGraph";
 
 const App = () => {
     const [countries, setCountries] = useState([]);
@@ -38,7 +39,7 @@ const App = () => {
                     }));
                     setCountries(countries);
                     setTableData(data);
-                    setMapCountries(sortData);
+                    setMapCountries(sortData(countries));
                 });
         }
         getCountriesData();
@@ -58,6 +59,8 @@ const App = () => {
             .then(data => {
                 setCountry(countryCode);
                 setCountryInfo(data);
+                setMapCenter([data.countryInfo.lat, data.countryInfo.long])
+                setMapZoom(4);
             });
     }
 
@@ -88,7 +91,7 @@ const App = () => {
                     <InfoBox
                         className="app__infoBox"
                         title="확진자 현황"
-                        cases={numeral(countryInfo.todayCases).format("0,0")}
+                        cases={prettyPrintStat(countryInfo.todayCases)}
                         total={numeral(countryInfo.cases).format("0,0a")}
                         onClick={e => setCasesType('cases')}
                         isRed
@@ -97,7 +100,7 @@ const App = () => {
                     <InfoBox
                         className="app__infoBox"
                         title="격리해제 현황"
-                        cases={numeral(countryInfo.todayRecovered).format("0,0")}
+                        cases={prettyPrintStat(countryInfo.todayRecovered)}
                         total={numeral(countryInfo.recovered).format("0,0a")}
                         active={casesType === 'recovered'}
                         onClick={e => setCasesType('recovered')}
@@ -105,7 +108,7 @@ const App = () => {
                     <InfoBox
                         className="app__infoBox"
                         title="사망자 현황"
-                        cases={numeral(countryInfo.todayDeaths).format("0,0")}
+                        cases={prettyPrintStat(countryInfo.todayDeaths)}
                         total={numeral(countryInfo.deaths).format("0,0a")}
                         isRed
                         active={casesType === 'deaths'}
@@ -124,6 +127,7 @@ const App = () => {
                     <h3>국가별 현황</h3>
                     <Table countries={tableData} />
                     <h3>전세계 {casesType}</h3>
+                    <LineGraph />
                 </CardContent>
             </Card>
         </div>
