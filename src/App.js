@@ -64,7 +64,6 @@ const App = () => {
                 setMapZoom(4);
             });
     }
-
     return (
         <div className="app">
             <div className="app__leftSide">
@@ -129,7 +128,7 @@ const App = () => {
                         <h3>국가별 현황</h3>
                         <Table countries={tableData} />
                         <h3>전세계 {casesType}</h3>
-                        <LineGraph className="app__graph" caseType={casesType} />
+                        <LineGraph className="app__graph" casesType={casesType} />
                     </div>
                 </CardContent>
             </Card>

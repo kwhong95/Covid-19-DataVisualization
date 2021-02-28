@@ -9,7 +9,6 @@ const Map = ({ countries, casesType, center, zoom }) => {
             <LeafletMap
                 center={center}
                 zoom={zoom}
-                dragging={false}
             >
                 <TileLayer
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
