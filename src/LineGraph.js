@@ -50,7 +50,6 @@ const options = {
 
 const LineGraph = ({ casesType }) => {
     const [data, setData] = useState({});
-    console.log(data)
 
     const buildChartData = ( data, casesType = "cases" ) => {
         const chartData = [];

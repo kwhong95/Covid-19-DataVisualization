@@ -19,6 +19,8 @@ const App = () => {
     const [mapCenter, setMapCenter] = useState({ lat: 37.56667, lng: 126.97806 })
     const [mapZoom, setMapZoom] = useState(3);
 
+    console.log(mapCenter);
+
     useEffect(() => {
         fetch('https://disease.sh/v3/covid-19/all')
             .then(res => res.json())
@@ -52,18 +54,24 @@ const App = () => {
 
         const url =
             countryCode === 'worldwide'
-        ? "https://disease.sh/v3/covid-19/all"
-        : `https://disease.sh/v3/covid-19/countries/${countryCode}`;
+                ? "https://disease.sh/v3/covid-19/all"
+                : `https://disease.sh/v3/covid-19/countries/${countryCode}`;
 
-        await fetch(url)
-            .then(res => res.json())
-            .then(data => {
-                setCountry(countryCode);
-                setCountryInfo(data);
-                setMapCenter([data.countryInfo.lat, data.countryInfo.long])
-                setMapZoom(4);
-            });
+        if (countryCode === 'worldwide') {
+            setMapZoom(3);
+            setMapCenter([37.56667, 126.97806]);
+        } else {
+            await fetch(url)
+                .then(res => res.json())
+                .then(data => {
+                    setCountry(countryCode);
+                    setCountryInfo(data);
+                    setMapCenter([data.countryInfo.lat, data.countryInfo.long])
+                    setMapZoom(4);
+                });
+        }
     }
+
     return (
         <div className="app">
             <div className="app__leftSide">
