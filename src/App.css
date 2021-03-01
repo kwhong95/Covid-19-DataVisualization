@@ -29,6 +29,12 @@
     background-color: white;
 }
 
+.app__information {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
 .app__information > h3 {
     color: #6a5d5d;
     font-weight: 400;
@@ -46,10 +52,21 @@
     padding: var(--size-padding);
 }
 
-
 @media (max-width: 990px) {
     .app {
         display: flex;
         flex-direction: column;
     }
+}
+
+@media (max-width: 400px) {
+    .app__stats {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .MuiCard-root {
+        margin-top: var(--size-padding);
+    }
+
 }
