@@ -1,9 +1,7 @@
 * {
     margin: 0;
-
     /* size */
     --size-padding: 10px;
-
     /* color */
 }
 
@@ -49,7 +47,16 @@
 .app__stats {
     display: flex;
     justify-content: space-between;
-    padding: var(--size-padding);
+}
+
+.app__rightSide .MuiCardContent-root {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.app__graph {
+    flex-grow: 1;
 }
 
 @media (max-width: 990px) {
